@@ -114,9 +114,6 @@ const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // Logout user, clear state, and navigate to login page
   const logout = () => {
     deleteAuthToken(); // Clear the token
-    if (window.location.pathname !== "/login") {
-      window.location.href = "/login"; // Redirect only if not already on the login page
-    }
   };
 
   // Memoize the context value to prevent unnecessary re-renders

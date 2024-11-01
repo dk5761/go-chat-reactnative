@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { API_TIMEOUT } from "./constants";
+import { API_TIMEOUT, baseUrl } from "./constants";
 import useStorage from "@/services/storage/useStorage";
 
 export enum ResponseStatus {
@@ -8,11 +8,9 @@ export enum ResponseStatus {
 }
 
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.API_BASE_URL, // Set your API base URL
+  baseURL: baseUrl, // Set your API base URL
   timeout: API_TIMEOUT, // Set a timeout for requests
 });
-
-console.log("process.env.API_BASE_URL", process.env.API_BASE_URL);
 
 // Request Interceptor
 api.interceptors.request.use(
@@ -29,8 +27,6 @@ api.interceptors.request.use(
     config.headers["Accept"] = "application/json";
     config.headers["Content-Type"] = "application/json";
     config.headers["X-App"] = "field-app";
-    config.headers["X-Referer"] = "android-29-check-test-version";
-    config.headers["X-App-Version"] = "0.0.1";
 
     return config;
   },
@@ -59,8 +55,6 @@ interface SuccessResponseRQ<T> {
 }
 interface SuccessResponse<T> {
   data: T;
-  status: number;
-  type: ResponseStatus.Success;
 }
 
 interface detailsProps {
@@ -149,8 +143,6 @@ const getApi = async <T = any>(url: string): Promise<ApiResponse<T>> => {
 
     return {
       data: response.data.data,
-      status: response.status,
-      type: ResponseStatus.Success,
     };
   } catch (error: any) {
     console.log({
@@ -193,8 +185,6 @@ const postApi = async <T = any, P = any>(
 
     return {
       data: response.data.data,
-      status: response.status,
-      type: ResponseStatus.Success,
     };
   } catch (error: any) {
     // Handle error as needed
@@ -233,8 +223,6 @@ const patchApi = async <T = any, P = any>(
 
     return {
       data: response.data.data,
-      status: response.status,
-      type: ResponseStatus.Success,
     };
   } catch (error: any) {
     console.log({ error });
@@ -266,8 +254,6 @@ const putApi = async <T = any, P = any>(
 
     return {
       data: response.data.data,
-      status: response.status,
-      type: ResponseStatus.Success,
     };
   } catch (error: any) {
     console.log({ error });

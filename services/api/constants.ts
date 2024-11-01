@@ -1,7 +1,11 @@
 export const API_TIMEOUT = 50000;
 
+export const baseUrl = "http://10.0.2.2:8080";
+export const wsBaseUrl = "ws://10.0.2.2:8080";
+
 export const apiUrls = {
-  auth: "",
+  login: "/auth/login",
+  register: "/auth/register",
 };
 
 export const checkOptionalParams = (options: any) => {
@@ -32,4 +36,8 @@ const getUrl = (url: string, options: any) => {
       : `${url}?${optionalParams}`;
   }
   return url;
+};
+
+export const getAuthUrl = (type: "login" | "register") => {
+  return getUrl(apiUrls[type], {});
 };
