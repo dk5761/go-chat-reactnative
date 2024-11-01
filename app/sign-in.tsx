@@ -21,8 +21,9 @@ export default function SignIn() {
       },
       {
         onSuccess: (data) => {
-          console.log({ data });
+          setAuthToken(data.token);
         },
+        onError: (err) => {},
       }
     );
   };
