@@ -29,7 +29,36 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0",
+            "kotlinVersion": "1.9.10",
+            "minSdkVersion": 29,
+            "networkInspector": true,
+            "newArchEnabled": false,
+            "usesCleartextTraffic": true,
+          },
+        },
+      ],
+      [
+      "expo-font",
+      {
+        "fonts": [
+          "node_modules/@expo-google-fonts/manrope/Manrope_200ExtraLight.ttf",
+          "node_modules/@expo-google-fonts/manrope/Manrope_300Light.ttf",
+          "node_modules/@expo-google-fonts/manrope/Manrope_400Regular.ttf",
+          "node_modules/@expo-google-fonts/manrope/Manrope_500Medium.ttf",
+          "node_modules/@expo-google-fonts/manrope/Manrope_600SemiBold.ttf",
+          "node_modules/@expo-google-fonts/manrope/Manrope_700Bold.ttf",
+          "node_modules/@expo-google-fonts/manrope/Manrope_800ExtraBold.ttf",
+        ],
+      },
+    ],
     ],
     "experiments": {
       "typedRoutes": true
