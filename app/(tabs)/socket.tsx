@@ -22,7 +22,7 @@ export default function ChatScreen() {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const serverUrl =
-    "ws://37ec-103-111-231-34.ngrok-free.app/api/chat/ws?userID=49016a5f-7be3-4bf8-8d32-6e94612677fb";
+    "ws://10.0.2.2:8080/api/chat/ws?userID=49016a5f-7be3-4bf8-8d32-6e94612677fb";
   let socket: WebSocket;
 
   // Set up WebSocket connection
@@ -43,8 +43,6 @@ export default function ChatScreen() {
       console.log("Disconnected from WebSocket server");
     };
 
-    console.log({ socket });
-
     return () => {
       socket.close();
     };
@@ -56,7 +54,6 @@ export default function ChatScreen() {
       receiver_id: "dcf53fb6-0af5-4378-8d3a-896c89de0173",
       content: message,
     };
-    console.log({ socket });
 
     socket.send(JSON.stringify(messageData));
     setMessage("");
