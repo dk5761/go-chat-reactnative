@@ -50,10 +50,15 @@ export default function SignUp() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Login onSubmitCB={(data) => onClickHandler(data)} btnText="Register" />
+      <Login
+        onSubmitCB={(data) => onClickHandler(data)}
+        btnText="Register"
+        title="Register"
+      />
       {/* <Button onPress={onClickHandler} title="Login" /> */}
       <Link
-        href={"/"}
+        replace
+        href={"/auth/login"}
         style={{
           paddingVertical: stylesConstants.TEN,
         }}

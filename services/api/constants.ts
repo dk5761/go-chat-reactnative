@@ -3,9 +3,13 @@ export const API_TIMEOUT = 50000;
 export const baseUrl = "http://10.0.2.2:8080";
 export const wsBaseUrl = "ws://10.0.2.2:8080";
 
+// export const baseUrl = "http://chat.be.dk5761.com:8080";
+// export const wsBaseUrl = "ws://chat.be.dk5761.com:8080";
+
 export const apiUrls = {
   login: "/auth/login",
   register: "/auth/register",
+  users: "/api/users",
 };
 
 export const checkOptionalParams = (options: any) => {
@@ -40,4 +44,8 @@ const getUrl = (url: string, options: any) => {
 
 export const getAuthUrl = (type: "login" | "register") => {
   return getUrl(apiUrls[type], {});
+};
+
+export const getUsersUrl = (options: { q: string }) => {
+  return getUrl(apiUrls.users, options);
 };

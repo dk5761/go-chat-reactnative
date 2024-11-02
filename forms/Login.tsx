@@ -8,6 +8,7 @@ import Label from "@/components/ui/Label"; // Custom Label component
 import Button from "@/components/ui/Button"; // Custom Button component
 import { stylesConstants } from "@/common/styleConstants";
 import Text from "@/components/ui/Text";
+import { FontSize } from "@/common/fontConstants";
 
 // Define validation schema with Zod
 const loginSchema = z.object({
@@ -21,15 +22,21 @@ type LoginSchema = z.infer<typeof loginSchema>;
 interface ILoginForm {
   onSubmitCB: (data: LoginSchema) => void;
   btnText: string;
+  title: string;
 }
 
-const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText }) => {
+const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "1@dk.com",
+      password: "dk@123",
+      username: "one",
+    },
   });
 
   const onSubmit = (data: LoginSchema) => {
@@ -38,6 +45,24 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText }) => {
 
   return (
     <View style={styles.container}>
+      <View
+        style={{
+          justifyContent: "center",
+          width: "100%",
+          // alignItems: "center",
+        }}
+      >
+        <Text
+          size="16"
+          weight="semiBold"
+          style={{
+            marginBottom: stylesConstants.FOUR,
+          }}
+        >
+          {title}
+        </Text>
+      </View>
+
       <Controller
         control={control}
         name="email"
@@ -95,7 +120,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: "80%",
     // padding: stylesConstants.SEVENTEEN,
     // padding: 16,
   },

@@ -41,7 +41,7 @@ export default function SignIn() {
       {
         onSuccess: (data) => {
           setAuthToken(data.token);
-          router.replace("/(app)/");
+          router.replace("/");
         },
         onError: (err) => {},
       }
@@ -50,10 +50,15 @@ export default function SignIn() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Login onSubmitCB={(data) => onClickHandler(data)} btnText="Login" />
+      <Login
+        onSubmitCB={(data) => onClickHandler(data)}
+        btnText="Login"
+        title="Login"
+      />
       {/* <Button onPress={onClickHandler} title="Login" /> */}
       <Link
-        href={"/sign-up"}
+        replace
+        href={"/auth/sign-up"}
         style={{
           paddingVertical: stylesConstants.TEN,
         }}

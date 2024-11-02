@@ -3,8 +3,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Slot, Stack } from "expo-router";
+import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -12,6 +11,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider } from "@/state/context/auth/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import useAuthContext from "@/hooks/contextHooks/useAuthContext";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -31,18 +31,26 @@ const queryClient = new QueryClient({
   },
 });
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+function RootLayout() {
+  const {
+    state: { token },
+  } = useAuthContext();
 
   useEffect(() => {
     SplashScreen.hideAsync();
   }, []);
 
+  return <Slot initialRouteName="/auth" />;
+}
+
+export default function RootLayoutWithProviders() {
+  const colorScheme = useColorScheme();
+
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <Slot />
+          <RootLayout />
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
