@@ -1,31 +1,16 @@
 import { FontSize } from "@/common/fontConstants";
 import React, { ReactNode } from "react";
 import { Text as RNText, TextProps } from "react-native";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
-type FontSizeValue =
-  | "8"
-  | "9"
-  | "10"
-  | "11"
-  | "12"
-  | "13"
-  | "14"
-  | "15"
-  | "16"
-  | "17"
-  | "18"
-  | "19"
-  | "20"
-  | "21"
-  | "22"
-  | "23"
-  | "24"
-  | "30";
+type FontSizeValue = "xxl" | "xl" | "lg" | "md" | "sm" | "xs" | "xxs";
 
 export interface CustomTextProps extends TextProps {
   children: ReactNode;
   size?: FontSizeValue;
   numberOfLines?: number;
+  fontSize?: number;
+
   weight?:
     | "xtraLight"
     | "light"
@@ -37,61 +22,6 @@ export interface CustomTextProps extends TextProps {
   color?: string;
   style?: [] | unknown | any;
 }
-export interface CustomTextPropsWithoutChildren extends TextProps {
-  size?: FontSizeValue;
-  weight?:
-    | "xtraLight"
-    | "light"
-    | "regular"
-    | "medium"
-    | "bold"
-    | "semiBold"
-    | "xtraBold";
-  color?: string;
-  style?: [] | unknown | any;
-}
-const fontSize = (size: string) => {
-  switch (size) {
-    case "8":
-      return FontSize.FONT_SIZE_8;
-    case "9":
-      return FontSize.FONT_SIZE_9;
-    case "10":
-      return FontSize.FONT_SIZE_10;
-    case "11":
-      return FontSize.FONT_SIZE_11;
-    case "12":
-      return FontSize.FONT_SIZE_12;
-    case "13":
-      return FontSize.FONT_SIZE_13;
-    case "14":
-      return FontSize.FONT_SIZE_14;
-    case "15":
-      return FontSize.FONT_SIZE_15;
-    case "16":
-      return FontSize.FONT_SIZE_16;
-    case "17":
-      return FontSize.FONT_SIZE_17;
-    case "18":
-      return FontSize.FONT_SIZE_18;
-    case "19":
-      return FontSize.FONT_SIZE_19;
-    case "20":
-      return FontSize.FONT_SIZE_20;
-    case "21":
-      return FontSize.FONT_SIZE_21;
-    case "22":
-      return FontSize.FONT_SIZE_22;
-    case "23":
-      return FontSize.FONT_SIZE_23;
-    case "24":
-      return FontSize.FONT_SIZE_24;
-    case "30":
-      return FontSize.FONT_SIZE_30;
-    default:
-      return FontSize.FONT_SIZE_14;
-  }
-};
 
 const fontFamily = (weight: string) => {
   switch (weight) {
@@ -119,20 +49,50 @@ const Text = ({
   size,
   weight,
   color,
+  fontSize,
   style,
   ...rest
 }: CustomTextProps) => {
+  const { styles, theme, breakpoint } = useStyles(stylesheet);
+  let computedFontSize: number;
+  const { fontSizes } = theme;
+
+  switch (size) {
+    case "xxl":
+      computedFontSize = fontSize || fontSizes.xxl;
+      break;
+    case "xl":
+      computedFontSize = fontSize || fontSizes.xl;
+      break;
+    case "lg":
+      computedFontSize = fontSize || fontSizes.lg;
+      break;
+    case "md":
+      computedFontSize = fontSize || fontSizes.md;
+      break;
+    case "sm":
+      computedFontSize = fontSize || fontSizes.sm;
+      break;
+    case "xs":
+      computedFontSize = fontSize || fontSizes.xs;
+      break;
+    case "xxs":
+      computedFontSize = fontSize || fontSizes.xxs;
+      break;
+
+    default:
+      computedFontSize = fontSize || fontSizes.xs;
+  }
+
   return (
     <RNText
       allowFontScaling={true}
       {...(rest.numberOfLines ? { numberOfLines: rest.numberOfLines } : {})}
       ellipsizeMode="tail"
       style={[
-        {
-          fontFamily: fontFamily(weight ?? "regular"),
-          fontSize: fontSize(size ?? "14"),
-          color: color ?? "#000", // Use provided color or default to "#fff"
-        },
+        styles.text,
+        { color: theme.colors.typography, fontSize: computedFontSize },
+        { fontFamily: fontFamily(weight ?? "regular") },
         style,
       ]}
       {...rest}
@@ -143,3 +103,9 @@ const Text = ({
 };
 
 export default Text;
+
+const stylesheet = createStyleSheet((theme, rt) => ({
+  text: {
+    textAlign: "left",
+  },
+}));

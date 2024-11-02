@@ -5,7 +5,7 @@ const get_Ratio = (size: number) => {
 
 const windowDimensions = Dimensions.get("window");
 const { width, height } = windowDimensions;
-const baseWidth = 372;
+const baseWidth = 360;
 const baseHeight = 812;
 
 export const getScaledDimensions = (

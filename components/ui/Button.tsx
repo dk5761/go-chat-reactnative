@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
   ViewStyle,
   TextStyle,
 } from "react-native";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type ButtonProps = TouchableOpacityProps & {
   title: string;
@@ -26,31 +26,33 @@ const Button: React.FC<ButtonProps> = ({
   textStyle,
   ...props
 }) => {
+  const { styles } = useStyles(stylesheet);
+
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor }, style]}
+      style={[styles.button, style]}
       onPress={onPress}
       {...props}
     >
-      <Text style={[styles.buttonText, { color: textColor }, textStyle]}>
-        {title}
-      </Text>
+      <Text style={[styles.buttonText, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 export default Button;
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet((theme) => ({
   button: {
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: theme.colors.primary,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: "600",
+    color: theme.colors.textOnPrimary,
   },
-});
+}));

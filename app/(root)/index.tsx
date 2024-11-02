@@ -1,6 +1,6 @@
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import React from "react";
-import { Stack } from "expo-router";
+import { Redirect, router, Stack } from "expo-router";
 import FloatingButton from "@/components/ui/FloatingButton";
 import {
   Entypo,
@@ -8,15 +8,21 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import Text from "@/components/ui/Text";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type Props = {};
 
 const index = (props: Props) => {
+  const { styles, theme, breakpoint } = useStyles(stylesheet);
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Stack.Screen
         options={{
-          headerStyle: { backgroundColor: "#fff" },
+          headerStyle: {
+            backgroundColor: "#fff",
+          },
           headerTintColor: "#fff",
           headerTitleStyle: {
             fontWeight: "bold",
@@ -43,7 +49,7 @@ const index = (props: Props) => {
         buttonConfigs={[
           {
             icon: <Feather name="user-plus" size={24} color="#FFF" />,
-            onPress: () => console.log("Attachment pressed"),
+            onPress: () => router.navigate("/users"),
           },
           {
             icon: <FontAwesome name="camera" size={24} color="#FFF" />,
@@ -51,19 +57,19 @@ const index = (props: Props) => {
           },
         ]}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default index;
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet((theme, rt) => ({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     borderWidth: 3,
     borderColor: "red",
-    position: "relative",
+    marginBottom: rt.insets.bottom,
   },
-});
+}));

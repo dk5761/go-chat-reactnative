@@ -1,26 +1,26 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+export enum Colors {
+  themeColor = "#00D09C",
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+  dark_background = "#121212",
+  dark_background_light = "#252525",
+  dark_text = "#FCFCFC",
+  dark_text_light = "#FCFCFC",
+  dark_border = "#484C56",
+  dark_card = "#292929",
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+  active_tab = "#808EEE",
+  unactive_tab = "#7C7D8B",
+
+  noti_card_dark = "#1b1b1b",
+  noti_card_light = "#f8f8f8",
+
+  light_card = "#F9F9F9",
+  light_background = "#FFF",
+  light_sub_background = "#F8F8F8",
+  light_border = "#ccc",
+  light_text = "#454545",
+
+  profit = "#0ABB93",
+  loss = "#D55538",
+  errorColor = "#eb5b3c",
+}
