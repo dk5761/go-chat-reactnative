@@ -1,6 +1,8 @@
 export const API_TIMEOUT = 50000;
 
 export const baseUrl = "http://10.0.2.2:8080";
+// export const baseUrl = "http://localhost:8080";
+
 export const wsBaseUrl = "ws://10.0.2.2:8080";
 
 // export const baseUrl = "http://chat.be.dk5761.com:8080";
