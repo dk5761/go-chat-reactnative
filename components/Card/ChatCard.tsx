@@ -1,5 +1,6 @@
+import { router } from "expo-router";
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type ChatCardProps = {
@@ -8,6 +9,7 @@ type ChatCardProps = {
       userId: string;
     };
     user: {
+      id: string;
       username: string;
       email: string;
     };
@@ -22,19 +24,24 @@ const ChatCard = ({ chatData }: ChatCardProps) => {
   const { styles } = useStyles(stylesheet);
 
   return (
-    <View style={styles.card}>
-      <Text style={styles.username}>User: {chatData.user.username}</Text>
-      <Text style={styles.email}>Email: {chatData.user.email}</Text>
-      <Text style={styles.message}>
-        Last Message: {chatData.lastMessage?.content || "No messages"}
-      </Text>
-      <Text style={styles.timestamp}>
-        Sent At:{" "}
-        {chatData.lastMessage?.createdAt
-          ? new Date(chatData.lastMessage.createdAt).toLocaleString()
-          : "N/A"}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={() => router.push(`./chat/${chatData.user.id}`)}>
+      <View style={styles.card}>
+        <View>
+          <Text style={styles.username}> {chatData.user.username}</Text>
+          <Text style={styles.message}>
+            {chatData.lastMessage?.content || "--"}
+          </Text>
+        </View>
+
+        {chatData.lastMessage?.createdAt ? (
+          <Text style={styles.timestamp}>
+            Sent At:{new Date(chatData.lastMessage.createdAt).toLocaleString()}
+          </Text>
+        ) : (
+          ""
+        )}
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -51,22 +58,17 @@ const stylesheet = createStyleSheet((theme) => ({
     minWidth: "100%",
   },
   username: {
-    fontSize: theme.fontSizes.md,
-    fontWeight: "bold",
     color: theme.colors.primary,
   },
   email: {
-    fontSize: theme.fontSizes.sm,
     color: theme.colors.secondary,
     marginTop: theme.spacing[1],
   },
   message: {
-    fontSize: theme.fontSizes.sm,
     color: theme.colors.secondary,
     marginTop: theme.spacing[1],
   },
   timestamp: {
-    fontSize: theme.fontSizes.xs,
     color: theme.colors.secondary,
     marginTop: theme.spacing[1],
   },

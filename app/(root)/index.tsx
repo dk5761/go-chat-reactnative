@@ -18,8 +18,8 @@ import { eq } from "drizzle-orm";
 
 type Props = {};
 
-const index = (props: Props) => {
-  const { styles, theme, breakpoint } = useStyles(stylesheet);
+const index = () => {
+  const { styles, theme } = useStyles(stylesheet);
   const [chatListData, setChatListData] = useState<any[]>([]);
 
   useFocusEffect(
@@ -36,7 +36,6 @@ const index = (props: Props) => {
             .leftJoin(Users, eq(ChatList.userId, Users.id))
             .leftJoin(Messages, eq(ChatList.lastMessage, Messages.id));
 
-          console.log("ChatList data with user and message:", chatListData);
           setChatListData(chatListData); // Update state with fetched data
         } catch (error) {
           console.error("Error fetching ChatList data:", error);
@@ -79,7 +78,6 @@ const index = (props: Props) => {
           <ChatCard chatData={item} /> // Render each ChatList entry as a card
         )}
         contentContainerStyle={{
-          // padding: theme.spacing[2],
           gap: theme.spacing[1],
         }}
       />
@@ -112,8 +110,7 @@ const stylesheet = createStyleSheet((theme, rt) => ({
     alignItems: "center",
     marginBottom: rt.insets.bottom,
     backgroundColor: "#e1e1e1",
-    // borderWidth: 2,
-    // borderColor: "red",
+
     padding: theme.spacing[1],
     paddingBottom: 0,
   },

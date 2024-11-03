@@ -15,6 +15,9 @@ import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import db from "@/services/db";
 import migrations from "@/drizzle/migrations";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import { WebSocketProvider } from "@/state/context/websocket/websocketContext";
+import useStorage from "@/services/storage/useStorage";
+import { useGetProfile } from "@/state/queries/users/users";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

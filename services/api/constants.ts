@@ -12,6 +12,7 @@ export const apiUrls = {
   login: "/auth/login",
   register: "/auth/register",
   users: "/api/users",
+  details: "/api/details",
 };
 
 export const checkOptionalParams = (options: any) => {
@@ -50,4 +51,8 @@ export const getAuthUrl = (type: "login" | "register") => {
 
 export const getUsersUrl = (options: { q: string }) => {
   return getUrl(apiUrls.users, options);
+};
+
+export const getProfileUrl = () => {
+  return getUrl(apiUrls.details, {});
 };
