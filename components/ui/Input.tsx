@@ -7,22 +7,25 @@ import {
   TextInputProps,
   TextStyle,
   StyleProp,
+  DimensionValue,
 } from "react-native";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type InputProps = TextInputProps & {
   label?: string;
   style?: StyleProp<TextStyle>;
+  width?: DimensionValue | undefined;
+  flex?: number;
 };
 
 const Input = forwardRef<TextInput, InputProps>(
-  ({ label, style, ...props }, ref) => {
+  ({ label, style, width = "100%", flex, ...props }, ref) => {
+    // Default width to 100% to fit container
+    const { styles } = useStyles(stylesheet);
+
     return (
-      <View style={styles.container}>
-        <TextInput
-          ref={ref}
-          style={{ ...styles.input, ...(style as any) }}
-          {...props}
-        />
+      <View style={[styles.container, { width, flex }]}>
+        <TextInput ref={ref} style={[styles.input, style]} {...props} />
       </View>
     );
   }
@@ -30,22 +33,18 @@ const Input = forwardRef<TextInput, InputProps>(
 
 export default Input;
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet((theme) => ({
   container: {
-    marginVertical: 8,
-    flex: 1,
-  },
-  label: {
-    marginBottom: 4,
-    fontSize: 16,
-    color: "#333",
+    marginVertical: theme.margins.sm,
+
+    overflow: "hidden",
   },
   input: {
-    height: 40,
+    height: 44, // Fixed height to avoid stretching
     borderColor: "#ccc",
-    width: "100%",
+    width: "100%", // Ensures input takes full width of its container
     borderWidth: 1,
     paddingHorizontal: 8,
-    borderRadius: 4,
+    borderRadius: theme.spacing[1],
   },
-});
+}));

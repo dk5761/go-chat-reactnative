@@ -8,7 +8,7 @@ import Label from "@/components/ui/Label"; // Custom Label component
 import Button from "@/components/ui/Button"; // Custom Button component
 import { stylesConstants } from "@/common/styleConstants";
 import Text from "@/components/ui/Text";
-import { FontSize } from "@/common/fontConstants";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 // Define validation schema with Zod
 const loginSchema = z.object({
@@ -39,6 +39,8 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
     },
   });
 
+  const { styles } = useStyles(stylesheet);
+
   const onSubmit = (data: LoginSchema) => {
     onSubmitCB(data);
   };
@@ -53,7 +55,6 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
         }}
       >
         <Text
-          size="16"
           weight="semiBold"
           style={{
             marginBottom: stylesConstants.FOUR,
@@ -118,14 +119,12 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
 
 export default Login;
 
-const styles = StyleSheet.create({
+const stylesheet = createStyleSheet((theme) => ({
   container: {
     width: "80%",
-    // padding: stylesConstants.SEVENTEEN,
-    // padding: 16,
   },
   error: {
     color: "red",
     marginBottom: 8,
   },
-});
+}));

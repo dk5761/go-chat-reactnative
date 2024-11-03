@@ -4,7 +4,8 @@ import useAuthContext from "@/hooks/contextHooks/useAuthContext";
 import { login } from "@/state/queries/auth/auth";
 import { useMutation } from "@tanstack/react-query";
 import { Link, router } from "expo-router";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 export default function SignIn() {
   const { setAuthToken } = useAuthContext();
@@ -48,8 +49,10 @@ export default function SignIn() {
     );
   };
 
+  const { styles } = useStyles(stylesheet);
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <SafeAreaView style={styles.container}>
       <Login
         onSubmitCB={(data) => onClickHandler(data)}
         btnText="Login"
@@ -65,12 +68,19 @@ export default function SignIn() {
       >
         <Text style={styles.link}>New?? Then Register!!</Text>
       </Link>
-    </View>
+    </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  link: {
-    color: "#007AFF",
+const stylesheet = createStyleSheet((theme, rt) => ({
+  container: {
+    flex: 1,
+    marginTop: rt.insets.top,
+    marginBottom: rt.insets.bottom,
+    justifyContent: "center",
+    alignItems: "center",
   },
-});
+  link: {
+    color: theme.colors.primary,
+  },
+}));

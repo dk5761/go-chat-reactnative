@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import db from "@/services/db";
 import migrations from "@/drizzle/migrations";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,6 +36,7 @@ const queryClient = new QueryClient({
 
 function RootLayout() {
   const { success, error } = useMigrations(db, migrations);
+  useDrizzleStudio(db as any);
 
   useEffect(() => {
     if (success) {
