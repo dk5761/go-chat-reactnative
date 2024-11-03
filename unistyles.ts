@@ -15,7 +15,7 @@ const base = {
   },
   fontSizes: {
     // fontSize: theme.fontSizes.lg
-    xxs: nf(10),
+    xxs: nf(8),
     xs: nf(12),
     sm: nf(14),
     md: nf(16),
