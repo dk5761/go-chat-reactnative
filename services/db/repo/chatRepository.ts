@@ -1,6 +1,7 @@
 import { Database, Q } from "@nozbe/watermelondb";
 import { Chat } from "../models/chatList";
 import { Message } from "../models/message";
+import { User } from "../models/user";
 
 export const chatRepository = {
   async createChat(
@@ -11,8 +12,8 @@ export const chatRepository = {
     return await database.action(async () => {
       return await database.get<Chat>("chats").create((chat) => {
         chat._raw.id = Math.random().toString(36).substr(2, 9); // Sample ID generator
-        chat.userId = userId;
-        chat.latestMessageId = latestMessageId;
+        chat.user_id = userId;
+        chat.message_id = latestMessageId;
       });
     });
   },
@@ -28,11 +29,11 @@ export const chatRepository = {
     const chatsWithRelations = await Promise.all(
       chats.map(async (chat) => {
         //@ts-ignore
-        const user = await database.get<User>("users").find(chat.userId);
+        const user = await database.get<User>("users").find(chat.us);
 
         // Manually fetch the latest message based on `latest_message_id`
-        const latestMessage = chat.latestMessageId
-          ? await database.get<Message>("messages").find(chat.latestMessageId)
+        const latestMessage = chat.message_id
+          ? await database.get<Message>("messages").find(chat.message_id)
           : null;
 
         return {

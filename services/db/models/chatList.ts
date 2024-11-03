@@ -17,11 +17,11 @@ export class Chat extends Model {
     },
   };
 
-  @field("user_id") userId!: string;
+  @field("user_id") user_id!: string;
 
-  @field("latest_message_id") latestMessageId!: string;
+  @field("message_id") message_id!: string;
 
   @relation("user", "user_id") user!: User;
   // Relationship to the latest Message in the chat
-  @relation("message", "latest_message_id") latestMessage!: Message;
+  @relation("message", "message_id") message!: Message;
 }
