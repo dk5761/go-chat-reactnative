@@ -45,10 +45,6 @@ function RootLayout() {
     // deleteLocalStorage();
   }, [success]);
 
-  console.log({
-    dbErr: error,
-  });
-
   return <Slot initialRouteName="/auth" />;
 }
 

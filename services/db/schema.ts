@@ -11,11 +11,9 @@ export const Users = sqliteTable(
     id: text("id").primaryKey(), // UUID primary key
     email: text("email").notNull().unique(),
     username: text("username").notNull().unique(),
-    passwordHash: text("password_hash").notNull(),
     createdAt: text("created_at").notNull(), // Store datetime as ISO 8601 string
     updatedAt: text("updated_at"),
     lastLogin: text("last_login"),
-    lastLoginToken: text("last_login_token"),
   },
   (table) => ({
     usernameIndex: index("idx_users_username").on(table.username),

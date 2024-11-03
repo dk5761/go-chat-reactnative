@@ -6,6 +6,9 @@ import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { Stack } from "expo-router";
 import UserCard from "@/components/User/UserCard";
 import { SearchInput } from "@/components/ui/SearchInput";
+import db from "@/services/db";
+import { Users as IUsers, ChatList } from "@/services/db/schema";
+import { eq } from "drizzle-orm";
 
 type Props = {};
 
@@ -43,8 +46,50 @@ const Users = (props: Props) => {
     );
   }
 
-  const addUserToChatList = (user: User) => {
-    console.log(user);
+  const addUserToChatList = async (user: User) => {
+    try {
+      // Check if user exists in the Users table
+      const existingUser = await db
+        .select()
+        .from(IUsers)
+        .where(eq(IUsers.id, user.id))
+        .limit(1);
+
+      if (existingUser.length === 0) {
+        // User does not exist, so insert them into the Users table
+        await db.insert(IUsers).values({
+          id: user.id,
+          email: user.email,
+          username: user.username,
+          createdAt: user.created_at,
+          lastLogin: user.last_login,
+          updatedAt: user.updated_at,
+          // Set this according to your requirement or leave it empty if not needed
+        });
+        console.log(`User ${user.username} added to Users table`);
+      }
+
+      // Check if user is in the ChatList
+      const chatListEntry = await db
+        .select()
+        .from(ChatList)
+        .where(eq(ChatList.userId, user.id))
+        .limit(1);
+
+      if (chatListEntry.length === 0) {
+        // User not in ChatList, so add them
+        await db.insert(ChatList).values({
+          userId: user.id,
+          lastMessage: null,
+          lastMessageDatetime: null,
+        });
+        console.log(`User ${user.username} added to ChatList`);
+      } else {
+        console.log(`User ${user.username} already exists in ChatList`);
+      }
+    } catch (error) {
+      console.error("Error adding user to chat list:", error);
+    }
   };
 
   return (

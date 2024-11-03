@@ -18,11 +18,11 @@ export interface Pagination {
 }
 
 export interface User {
-  created_at: Date;
+  created_at: string;
   email: string;
   id: string;
-  last_login: Date;
-  updated_at: Date;
+  last_login: string;
+  updated_at: string;
   username: string;
 }
 
