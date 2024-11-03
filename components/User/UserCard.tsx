@@ -8,9 +8,10 @@ import { Feather } from "@expo/vector-icons";
 
 type Props = {
   userData: User;
+  addUser: (user: User) => void;
 };
 
-const UserCard = ({ userData }: Props) => {
+const UserCard = ({ userData, addUser }: Props) => {
   const { styles } = useStyles(stylesheet);
 
   const last = format(userData.last_login, "dd-MM-yyyy");
@@ -35,7 +36,12 @@ const UserCard = ({ userData }: Props) => {
       </View>
       <View style={styles.right}>
         <TouchableOpacity>
-          <Feather name="user-plus" size={24} color="green" />
+          <Feather
+            name="user-plus"
+            size={24}
+            color="green"
+            onPress={() => addUser(userData)}
+          />
         </TouchableOpacity>
       </View>
     </View>

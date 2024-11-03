@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, TextInput, View } from "react-native";
 import React, { useRef, useState } from "react";
-import { GetUsers, useGetUsers } from "@/state/queries/users/users";
+import { GetUsers, useGetUsers, User } from "@/state/queries/users/users";
 import Text from "@/components/ui/Text";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { Stack } from "expo-router";
@@ -43,6 +43,10 @@ const Users = (props: Props) => {
     );
   }
 
+  const addUserToChatList = (user: User) => {
+    console.log(user);
+  };
+
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -54,7 +58,9 @@ const Users = (props: Props) => {
       <FlatList
         contentContainerStyle={{ gap: theme.spacing[1] }}
         data={data.users}
-        renderItem={({ item }) => <UserCard userData={item} />}
+        renderItem={({ item }) => (
+          <UserCard userData={item} addUser={addUserToChatList} />
+        )}
         keyExtractor={(item) => item.id}
       />
     </View>

@@ -11,8 +11,9 @@ import "../unistyles";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider } from "@/state/context/auth/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import useAuthContext from "@/hooks/contextHooks/useAuthContext";
-import useStorage from "@/services/storage/useStorage";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import db from "@/services/db";
+import migrations from "@/drizzle/migrations";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -33,12 +34,18 @@ const queryClient = new QueryClient({
 });
 
 function RootLayout() {
-  const { deleteLocalStorage } = useStorage("token");
+  const { success, error } = useMigrations(db, migrations);
 
   useEffect(() => {
-    SplashScreen.hideAsync();
+    if (success) {
+      SplashScreen.hideAsync();
+    }
     // deleteLocalStorage();
-  }, []);
+  }, [success]);
+
+  console.log({
+    dbErr: error,
+  });
 
   return <Slot initialRouteName="/auth" />;
 }
