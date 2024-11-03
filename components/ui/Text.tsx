@@ -81,12 +81,12 @@ const Text = ({
       break;
 
     default:
-      computedFontSize = fontSize || fontSizes.xs;
+      computedFontSize = fontSize || fontSizes.xxs;
   }
 
   return (
     <RNText
-      allowFontScaling={true}
+      allowFontScaling={false}
       {...(rest.numberOfLines ? { numberOfLines: rest.numberOfLines } : {})}
       ellipsizeMode="tail"
       style={[
