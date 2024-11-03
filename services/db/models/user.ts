@@ -6,7 +6,7 @@ export class User extends Model {
 
   @field("email") email!: string;
   @field("username") username!: string;
-  @date("created_at") createdAt!: number;
-  @date("updated_at") updatedAt!: number;
-  @date("last_login") lastLogin!: number;
+  @date("created_at") created_at!: number;
+  @date("updated_at") updated_at!: number;
+  @date("last_login") last_login!: number;
 }

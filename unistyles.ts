@@ -57,6 +57,7 @@ export const lightTheme = {
   colors: {
     typography: "#2c2c2c",
     background: "#ffffff",
+    neutral: "#e1e1e1",
     primary: "#3498db",
     secondary: "#2ecc71",
     accent: "#e74c3c",
@@ -76,6 +77,8 @@ export const darkTheme = {
   colors: {
     typography: "#ffffff",
     background: "#000000",
+    neutral: "#000000",
+
     primary: "#3498db",
     secondary: "#2ecc71",
     accent: "#e74c3c",

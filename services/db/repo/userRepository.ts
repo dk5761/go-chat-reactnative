@@ -13,22 +13,34 @@ export const userRepository = {
     database: Database,
     userData: {
       id: string;
-      email: string;
       username: string;
-      createdAt: number;
-      updatedAt: number;
-      lastLogin: number;
+      email: string;
+      created_at: Date;
+      updated_at: Date;
+      last_login: Date;
     }
   ): Promise<User> {
-    return await database.action(async () => {
-      return await database.get<User>("users").create((user) => {
-        user._raw.id = userData.id; // Use backend-provided ID
-        user.email = userData.email;
-        user.username = userData.username;
-        user.createdAt = userData.createdAt;
-        user.updatedAt = userData.updatedAt;
-        user.lastLogin = userData.lastLogin;
-      });
+    return await database.write(async () => {
+      const user = await database.get<User>("users").find(userData.id);
+
+      if (!user) {
+        return await database.get<User>("users").create((user) => {
+          user._raw.id = userData.id; // Use backend-provided ID
+          user.email = userData.email;
+          user.username = userData.username;
+          user.created_at = Math.floor(
+            new Date(userData.created_at).getTime() / 1000
+          );
+          user.updated_at = Math.floor(
+            new Date(userData.updated_at).getTime() / 1000
+          );
+          user.last_login = Math.floor(
+            new Date(userData.last_login).getTime() / 1000
+          );
+        });
+      }
+
+      return user;
     });
   },
 
@@ -54,13 +66,13 @@ export const userRepository = {
   async updateUserLastLogin(
     database: Database,
     userId: string,
-    lastLogin: number
+    lastLogin: Date
   ): Promise<void> {
-    await database.action(async () => {
+    await database.write(async () => {
       const user = await this.getUserById(database, userId);
       if (user) {
         await user.update((u) => {
-          u.lastLogin = lastLogin;
+          u.last_login = Math.floor(new Date(lastLogin).getTime() / 1000);
         });
       }
     });

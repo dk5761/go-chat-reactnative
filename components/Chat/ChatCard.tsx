@@ -8,10 +8,9 @@ import { Feather } from "@expo/vector-icons";
 
 type Props = {
   userData: User;
-  onClick: (user: User) => void;
 };
 
-const UserCard = ({ userData, onClick }: Props) => {
+const ChatCard = ({ userData }: Props) => {
   const { styles } = useStyles(stylesheet);
 
   const last = format(userData.last_login, "dd-MM-yyyy");
@@ -35,15 +34,15 @@ const UserCard = ({ userData, onClick }: Props) => {
         </View>
       </View>
       <View style={styles.right}>
-        <TouchableOpacity onPress={() => onClick(userData)}>
-          <Feather name="user-plus" size={24} color="green" />
-        </TouchableOpacity>
+        <Text weight="semiBold" size="xxs">
+          {last}
+        </Text>
       </View>
     </View>
   );
 };
 
-export default UserCard;
+export default ChatCard;
 
 const stylesheet = createStyleSheet((theme) => ({
   container: {
@@ -65,6 +64,6 @@ const stylesheet = createStyleSheet((theme) => ({
     // borderWidth: 2,
     // borderColor: "green",
     alignItems: "flex-end",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
 }));
