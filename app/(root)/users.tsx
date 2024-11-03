@@ -1,6 +1,6 @@
-import { FlatList, StyleSheet, TextInput, View } from "react-native";
-import React, { useRef, useState } from "react";
-import { GetUsers, useGetUsers } from "@/state/queries/users/users";
+import { FlatList, View } from "react-native";
+import React, { useState } from "react";
+import { useGetUsers } from "@/state/queries/users/users";
 import Text from "@/components/ui/Text";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { Stack } from "expo-router";

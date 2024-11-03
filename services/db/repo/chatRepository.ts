@@ -46,4 +46,29 @@ export const chatRepository = {
 
     return chatsWithRelations;
   },
+  async getChatUsers(database: Database) {
+    // Fetch chat records based on the user IDs
+    const chats = await database.get<Chat>("chats").query().fetch();
+
+    // Map through each chat to retrieve related user and latest message data
+    const chatsWithRelations = await Promise.all(
+      chats.map(async (chat) => {
+        //@ts-ignore
+        const user = await database.get<User>("users").find(chat.us);
+
+        // Manually fetch the latest message based on `latest_message_id`
+        const message = chat.message_id
+          ? await database.get<Message>("messages").find(chat.message_id)
+          : null;
+
+        return {
+          chat,
+          user,
+          message,
+        };
+      })
+    );
+
+    return chatsWithRelations;
+  },
 };
