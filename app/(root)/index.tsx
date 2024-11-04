@@ -108,7 +108,7 @@ const stylesheet = createStyleSheet((theme, rt) => ({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: rt.insets.bottom,
+
     backgroundColor: "#e1e1e1",
 
     padding: theme.spacing[1],

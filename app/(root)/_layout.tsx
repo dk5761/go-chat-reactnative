@@ -6,6 +6,7 @@ import { wsBaseUrl } from "@/services/api/constants";
 import { View } from "react-native";
 import Text from "@/components/ui/Text";
 import useStorage from "@/services/storage/useStorage";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function AppLayout() {
   const {
@@ -17,6 +18,7 @@ export default function AppLayout() {
   const isLoggedIn = token;
 
   const { data, isLoading, error } = useGetProfile({});
+  const { bottom } = useSafeAreaInsets();
 
   if (!isLoggedIn) {
     // On web, static rendering will stop here as the user is not authenticated
@@ -43,14 +45,18 @@ export default function AppLayout() {
     return <Redirect href={"../auth/login"} />;
   }
 
-  console.log({ data });
-
   // This layout can be deferred because it's not the root layout.
   return (
     <WebSocketProvider
       serverUrl={`${wsBaseUrl}/api/chat/ws?userID=${data?.id}`}
     >
-      <Stack />
+      <Stack
+        screenOptions={{
+          contentStyle: {
+            paddingBottom: bottom,
+          },
+        }}
+      />
     </WebSocketProvider>
   );
 }

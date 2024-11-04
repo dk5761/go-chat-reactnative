@@ -7,6 +7,7 @@ import { Users, Messages } from "@/services/db/schema"; // Import Users and Mess
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 import { desc, eq } from "drizzle-orm";
 import { useWebSocket } from "@/state/context/websocket/websocketContext";
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 
 export default function Chat() {
   const { id } = useLocalSearchParams();
@@ -61,46 +62,52 @@ export default function Chat() {
   const allMessages = [...messages, ...chatMessages];
 
   return (
-    <View style={styles.container}>
-      <Stack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: "#fff",
-          },
-          headerTintColor: "#000",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-          headerTitle: () => (
-            <Text style={styles.headerTitle}>
-              {user ? user.username : "Chat"}
-            </Text>
-          ),
-        }}
-      />
-
-      <FlatList
-        data={allMessages}
-        keyExtractor={(item, index) => `${item.id || index}`}
-        renderItem={({ item }) => (
-          <View style={styles.messageContainer}>
-            <Text style={styles.messageText}>{item.content}</Text>
-          </View>
-        )}
-        inverted // To show the latest message at the bottom
-        contentContainerStyle={styles.messagesContent}
-      />
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          value={message}
-          onChangeText={setMessage}
-          placeholder="Type a message..."
+    <KeyboardAvoidingView
+      style={styles.container}
+      keyboardVerticalOffset={70}
+      behavior="padding"
+    >
+      <View style={styles.viewContainer}>
+        <Stack.Screen
+          options={{
+            headerStyle: {
+              backgroundColor: "#fff",
+            },
+            headerTintColor: "#000",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+            headerTitle: () => (
+              <Text style={styles.headerTitle}>
+                {user ? user.username : "Chat"}
+              </Text>
+            ),
+          }}
         />
-        <Button title="Send" onPress={handleSendMessage} />
+
+        <FlatList
+          data={allMessages}
+          keyExtractor={(item, index) => `${item.id || index}`}
+          renderItem={({ item }) => (
+            <View style={styles.messageContainer}>
+              <Text style={styles.messageText}>{item.content}</Text>
+            </View>
+          )}
+          inverted // To show the latest message at the bottom
+          contentContainerStyle={styles.messagesContent}
+        />
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            value={message}
+            onChangeText={setMessage}
+            placeholder="Type a message..."
+          />
+          <Button title="Send" onPress={handleSendMessage} />
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -108,7 +115,10 @@ const stylesheet = createStyleSheet((theme) => ({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
+  },
+  viewContainer: {
     padding: theme.spacing[3],
+    flex: 1,
   },
   headerTitle: {
     fontWeight: "600",
