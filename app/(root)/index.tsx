@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, View } from "react-native";
-import React from "react";
-import { Redirect, router, Stack } from "expo-router";
+import React, { useCallback, useState } from "react";
+import { Redirect, router, Stack, useFocusEffect } from "expo-router";
 import FloatingButton from "@/components/ui/FloatingButton";
 import {
   Entypo,
@@ -10,11 +10,42 @@ import {
 } from "@expo/vector-icons";
 import Text from "@/components/ui/Text";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
+import db from "@/services/db";
+import { ChatList, Messages, Users } from "@/services/db/schema";
+import { FlatList } from "react-native";
+import ChatCard from "@/components/Card/ChatCard";
+import { eq } from "drizzle-orm";
 
 type Props = {};
 
-const index = (props: Props) => {
-  const { styles, theme, breakpoint } = useStyles(stylesheet);
+const index = () => {
+  const { styles, theme } = useStyles(stylesheet);
+  const [chatListData, setChatListData] = useState<any[]>([]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchChatListData = async () => {
+        try {
+          // Fetch data from ChatList, joining with Users and Messages
+          const chatListData = await db
+            .select({
+              user: Users,
+              lastMessage: Messages,
+            })
+            .from(ChatList)
+            .leftJoin(Users, eq(ChatList.userId, Users.id))
+            .leftJoin(Messages, eq(ChatList.lastMessage, Messages.id));
+
+          setChatListData(chatListData); // Update state with fetched data
+        } catch (error) {
+          console.error("Error fetching ChatList data:", error);
+        }
+      };
+
+      // Fetch data when the screen is focused
+      fetchChatListData();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -40,7 +71,16 @@ const index = (props: Props) => {
         }}
       />
 
-      <Text>Home</Text>
+      <FlatList
+        data={chatListData}
+        keyExtractor={(item) => item.user.userId}
+        renderItem={({ item }) => (
+          <ChatCard chatData={item} /> // Render each ChatList entry as a card
+        )}
+        contentContainerStyle={{
+          gap: theme.spacing[1],
+        }}
+      />
       <FloatingButton
         mainButtonColor="#3498db"
         secondaryButtonColor="#3498db"
@@ -68,8 +108,10 @@ const stylesheet = createStyleSheet((theme, rt) => ({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 3,
-    borderColor: "red",
     marginBottom: rt.insets.bottom,
+    backgroundColor: "#e1e1e1",
+
+    padding: theme.spacing[1],
+    paddingBottom: 0,
   },
 }));

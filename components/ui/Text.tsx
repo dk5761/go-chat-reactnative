@@ -81,7 +81,7 @@ const Text = ({
       break;
 
     default:
-      computedFontSize = fontSize || fontSizes.xxs;
+      computedFontSize = fontSize || fontSizes.xs;
   }
 
   return (

@@ -8,9 +8,10 @@ import React, {
 import { AuthAction, AuthContextType, AuthState, UserInfoType } from "./types";
 import { jwtDecode } from "jwt-decode";
 import useStorage from "@/services/storage/useStorage";
+import { storage } from "@/services/storage/mmkv";
 
 const initialState: AuthState = {
-  token: null,
+  token: storage.getString("token") ?? null,
   userInfo: null,
 };
 

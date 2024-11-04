@@ -19,14 +19,12 @@ export const SearchInput = ({ input, setInput, setQ }: SearchInputTypes) => {
           backgroundColor: theme.colors.background,
         }}
         placeholder="Search"
+        flex={1}
       />
       <Button
         title="Search"
         onPress={() => {
           setQ(input.toLowerCase());
-        }}
-        style={{
-          width: "auto",
         }}
       />
     </View>
@@ -38,5 +36,7 @@ const stylesheet = createStyleSheet((theme) => ({
     flexDirection: "row",
     width: "100%",
     gap: theme.spacing[1],
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 }));

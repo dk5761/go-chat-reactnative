@@ -43,15 +43,15 @@ export default Button;
 
 const stylesheet = createStyleSheet((theme) => ({
   button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingHorizontal: theme.margins.lg,
     borderRadius: 8,
+    height: 44,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.colors.primary,
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: theme.fontSizes.xs,
     fontWeight: "600",
     color: theme.colors.textOnPrimary,
   },

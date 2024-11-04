@@ -1,12 +1,22 @@
 import { Href, Redirect, Stack } from "expo-router";
 import useAuthContext from "@/hooks/contextHooks/useAuthContext";
+import { useGetProfile } from "@/state/queries/users/users";
+import { WebSocketProvider } from "@/state/context/websocket/websocketContext";
+import { wsBaseUrl } from "@/services/api/constants";
+import { View } from "react-native";
+import Text from "@/components/ui/Text";
+import useStorage from "@/services/storage/useStorage";
 
 export default function AppLayout() {
   const {
     state: { token },
   } = useAuthContext();
 
+  const { purgeLocalStorage } = useStorage("token");
+
   const isLoggedIn = token;
+
+  const { data, isLoading, error } = useGetProfile({});
 
   if (!isLoggedIn) {
     // On web, static rendering will stop here as the user is not authenticated
@@ -14,6 +24,33 @@ export default function AppLayout() {
     return <Redirect href={"../auth/login"} />;
   }
 
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          justifyContent: "center",
+          flex: 1,
+          alignItems: "center",
+        }}
+      >
+        <Text>Loading</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    purgeLocalStorage();
+    return <Redirect href={"../auth/login"} />;
+  }
+
+  console.log({ data });
+
   // This layout can be deferred because it's not the root layout.
-  return <Stack />;
+  return (
+    <WebSocketProvider
+      serverUrl={`${wsBaseUrl}/api/chat/ws?userID=${data?.id}`}
+    >
+      <Stack />
+    </WebSocketProvider>
+  );
 }
