@@ -18,8 +18,6 @@ const Users = (props: Props) => {
 
   const [q, setQ] = useState<string>("");
 
-  console.log({ q });
-
   const { data, isLoading, isFetching, error } = useGetUsers({
     options: {
       q,
@@ -61,9 +59,9 @@ const Users = (props: Props) => {
           id: user.id,
           email: user.email,
           username: user.username,
-          createdAt: user.created_at,
-          lastLogin: user.last_login,
-          updatedAt: user.updated_at,
+          created_at: user.created_at,
+          last_login: user.last_login,
+          updated_at: user.updated_at,
           // Set this according to your requirement or leave it empty if not needed
         });
         console.log(`User ${user.username} added to Users table`);

@@ -11,9 +11,9 @@ export const Users = sqliteTable(
     id: text("id").primaryKey(), // UUID primary key
     email: text("email").notNull().unique(),
     username: text("username").notNull().unique(),
-    createdAt: text("created_at").notNull(), // Store datetime as ISO 8601 string
-    updatedAt: text("updated_at"),
-    lastLogin: text("last_login"),
+    created_at: text("created_at").notNull(), // Store datetime as ISO 8601 string
+    updated_at: text("updated_at"),
+    last_login: text("last_login"),
   },
   (table) => ({
     usernameIndex: index("idx_users_username").on(table.username),
@@ -26,19 +26,19 @@ export const Messages = sqliteTable(
   "Messages",
   {
     id: text("id").primaryKey(), // ObjectID primary key
-    eventType: text("event_type").notNull(),
-    senderId: text("sender_id")
+    event_type: text("event_type").notNull(),
+    sender_id: text("sender_id")
       .notNull()
       .references(() => Users.id, { onDelete: "cascade" }),
-    receiverId: text("receiver_id")
+    receiver_id: text("receiver_id")
       .notNull()
       .references(() => Users.id, { onDelete: "cascade" }),
     content: text("content").notNull(),
-    createdAt: text("created_at").notNull(), // Store datetime as ISO 8601 string
+    created_at: text("created_at").notNull(), // Store datetime as ISO 8601 string
     fileUrl: text("file_url"),
   },
   (table) => ({
-    receiverIdIndex: index("idx_messages_receiver_id").on(table.receiverId),
+    receiverIdIndex: index("idx_messages_receiver_id").on(table.receiver_id),
   })
 );
 

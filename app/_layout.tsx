@@ -15,9 +15,7 @@ import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 import db from "@/services/db";
 import migrations from "@/drizzle/migrations";
 import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
-import { WebSocketProvider } from "@/state/context/websocket/websocketContext";
-import useStorage from "@/services/storage/useStorage";
-import { useGetProfile } from "@/state/queries/users/users";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -58,7 +56,9 @@ export default function RootLayoutWithProviders() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <RootLayout />
+          <KeyboardProvider>
+            <RootLayout />
+          </KeyboardProvider>
         </AuthProvider>
       </QueryClientProvider>
     </ThemeProvider>
