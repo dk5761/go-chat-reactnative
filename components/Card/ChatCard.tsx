@@ -5,26 +5,27 @@ import { createStyleSheet, useStyles } from "react-native-unistyles";
 
 type ChatCardProps = {
   chatData: {
-    chatListEntry: {
-      userId: string;
-    };
     user: {
       id: string;
       username: string;
       email: string;
     };
     lastMessage?: {
-      content: string;
-      createdAt: string;
+      content: string | null;
+      createdAt: string | null;
     };
   };
+  disable: boolean;
 };
 
-const ChatCard = ({ chatData }: ChatCardProps) => {
+const ChatCard = ({ chatData, disable }: ChatCardProps) => {
   const { styles } = useStyles(stylesheet);
 
   return (
-    <TouchableOpacity onPress={() => router.push(`./chat/${chatData.user.id}`)}>
+    <TouchableOpacity
+      onPress={() => router.push(`./chat/${chatData.user.id}`)}
+      disabled={disable}
+    >
       <View style={styles.card}>
         <View>
           <Text style={styles.username}> {chatData.user.username}</Text>
