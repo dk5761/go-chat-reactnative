@@ -59,17 +59,19 @@ export default function AppLayout() {
         screenOptions={{
           contentStyle: {
             paddingBottom: bottom,
-            backgroundColor: theme.colors.background,
+            backgroundColor: theme.colors.gray3,
           },
           statusBarStyle: "auto",
           headerStyle: {
-            backgroundColor: theme.colors.background,
+            backgroundColor: theme.colors.gray3,
           },
           headerTitleStyle: {
-            color: theme.colors.primaryText,
+            color: theme.colors.teal11,
+            fontWeight: "800",
           },
-          headerTintColor: theme.colors.primaryText,
-          statusBarColor: theme.colors.primary,
+          headerTintColor: theme.colors.teal11,
+          statusBarColor: theme.colors.gray3,
+          headerShadowVisible: false,
         }}
       />
     </WebSocketProvider>

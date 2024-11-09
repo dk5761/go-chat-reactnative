@@ -86,8 +86,7 @@ const index = () => {
           headerTitle: (props) => (
             <Text
               style={{
-                fontWeight: "600",
-                color: theme.colors.primaryText,
+                color: theme.colors.teal9,
               }}
             >
               Home
@@ -95,34 +94,26 @@ const index = () => {
           ),
         }}
       />
-      {/* <Button
-        title="Open Toast"
-        onPress={() => {
-          Burnt.toast({
-            title: "Congrats!", // required
-
-            preset: "done", // or "error", "none", "custom"
-
-            message: "", // optional
-
-            haptic: "success", // or "success", "warning", "error"
-
-            duration: 4, // duration in seconds
-
-            shouldDismissByDrag: true,
-
-            from: "bottom", // "top" or "bottom"
-
-            // optionally customize layout
-            layout: {
-              iconSize: {
-                height: 24,
-                width: 24,
-              },
-            },
-          });
-        }}
-      /> */}
+      <View style={{ gap: 3, flexDirection: "row" }}>
+        <Button
+          title="primary"
+          onPress={() => {}}
+          variant="primary"
+          size="xs"
+        />
+        <Button
+          title="secondary"
+          onPress={() => {}}
+          variant="secondary"
+          size="sm"
+        />
+        <Button
+          title="inverse"
+          onPress={() => {}}
+          variant="disabled"
+          size="xl"
+        />
+      </View>
 
       <FlatList
         data={chatListData}
@@ -173,9 +164,7 @@ const stylesheet = createStyleSheet((theme, rt) => ({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-
-    backgroundColor: "#e1e1e1",
-
+    // backgroundColor: theme.colors.gray3,
     padding: theme.spacing[1],
     paddingBottom: 0,
   },

@@ -28,8 +28,8 @@ const Input = forwardRef<TextInput, InputProps>(
         <TextInput
           ref={ref}
           style={[styles.input, style]}
-          selectionColor={theme.colors.primaryText}
-          placeholderTextColor={theme.colors.secondaryText}
+          selectionColor={theme.colors.gray12}
+          placeholderTextColor={theme.colors.gray7}
           {...props}
         />
       </View>
@@ -47,12 +47,12 @@ const stylesheet = createStyleSheet((theme) => ({
   },
   input: {
     height: 44, // Fixed height to avoid stretching
-    borderColor: theme.colors.border,
+    borderColor: theme.colors.gray8,
     width: "100%", // Ensures input takes full width of its container
     borderWidth: 1,
     paddingHorizontal: 8,
     borderRadius: theme.spacing[1],
-    color: theme.colors.primaryText,
-    backgroundColor: theme.colors.background,
+    color: theme.colors.gray12,
+    backgroundColor: theme.colors.gray1,
   },
 }));

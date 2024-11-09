@@ -58,7 +58,7 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
           weight="semiBold"
           style={{
             marginBottom: stylesConstants.FOUR,
-            color: theme.colors.primaryText,
+            color: theme.colors.gray12,
           }}
         >
           {title}

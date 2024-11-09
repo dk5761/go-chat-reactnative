@@ -94,16 +94,7 @@ const Users = (props: Props) => {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          headerTitle: (props) => (
-            <Text
-              style={{
-                fontWeight: "600",
-                color: theme.colors.primaryText,
-              }}
-            >
-              Users
-            </Text>
-          ),
+          headerTitle: (props) => <Text>Users</Text>,
         }}
       />
       <SearchInput input={input} setInput={setInput} setQ={setQ} />

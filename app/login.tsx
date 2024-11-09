@@ -83,9 +83,9 @@ const stylesheet = createStyleSheet((theme, rt) => ({
 
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.gray1,
   },
   link: {
-    color: theme.colors.primary,
+    color: theme.colors.teal9,
   },
 }));
