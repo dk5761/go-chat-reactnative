@@ -55,17 +55,19 @@ export const breakpoints = {
 // You can define as many themes as you want. Each theme just needs to have a unique name and the same type. The library has no restrictions on the shape of the theme. You can use nested objects, functions, spread operators, and so on.
 export const lightTheme = {
   colors: {
-    typography: "#2c2c2c",
-    background: "#ffffff",
-    primary: "#3498db",
-    secondary: "#2ecc71",
-    accent: "#e74c3c",
-    info: "#3498db",
-    success: "#2ecc71",
-    warning: "#f39c12",
-    error: "#7676a7",
-    darkGrey: "#333333",
-    textOnPrimary: "#fff",
+    primary: "#6200EE", // Purple (Default primary)
+    background: "#FFFFFF", // White
+    surface: "#F5F5F5", // Light Gray for surfaces
+    accent: "#03DAC6", // Teal for accent
+    border: "#E0E0E0", // Light Gray border
+    success: "#4CAF50", // Green
+    warning: "#FB8C00", // Orange
+    error: "#F44336",
+    primaryText: "#212121", // Almost Black for main text
+    secondaryText: "#757575", // Medium Gray for secondary text
+    placeholderText: "#9E9E9E", // Light Gray for placeholder text
+    linkText: "#6200EE", // Same as primary for links
+    timestampText: "#BDBDBD",
   },
   margins: base.margins,
   fontSizes: base.fontSizes,
@@ -74,17 +76,19 @@ export const lightTheme = {
 
 export const darkTheme = {
   colors: {
-    typography: "#ffffff",
-    background: "#000000",
-    primary: "#3498db",
-    secondary: "#2ecc71",
-    accent: "#e74c3c",
-    info: "#3498db",
-    success: "#2ecc71",
-    warning: "#f39c12",
-    error: "#e74c3c",
-    darkGrey: "#333333",
-    textOnPrimary: "#fff",
+    primary: "#BB86FC", // Light Purple (Default primary for dark mode)
+    background: "#121212", // Dark background
+    surface: "#1E1E1E", // Slightly lighter for surfaces
+    accent: "#03DAC6", // Teal for accent
+    border: "#333333", // Dark Gray border
+    success: "#66BB6A", // Bright Green for success
+    warning: "#FFA726", // Bright Orange for warning
+    error: "#EF5350",
+    primaryText: "#FFFFFF", // White for primary text
+    secondaryText: "#B0B0B0", // Light Gray for secondary text
+    placeholderText: "#757575", // Medium Gray for placeholders
+    linkText: "#BB86FC", // Light Purple for links
+    timestampText: "#9E9E9E",
   },
   margins: base.margins,
   fontSizes: base.fontSizes,

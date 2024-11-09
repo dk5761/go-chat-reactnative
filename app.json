@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    // "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -41,27 +40,35 @@
             "minSdkVersion": 29,
             "networkInspector": true,
             "newArchEnabled": false,
-            "usesCleartextTraffic": true,
-          },
-        },
+            "usesCleartextTraffic": true
+          }
+        }
       ],
       [
-      "expo-font",
-      {
-        "fonts": [
-          "node_modules/@expo-google-fonts/manrope/Manrope_200ExtraLight.ttf",
-          "node_modules/@expo-google-fonts/manrope/Manrope_300Light.ttf",
-          "node_modules/@expo-google-fonts/manrope/Manrope_400Regular.ttf",
-          "node_modules/@expo-google-fonts/manrope/Manrope_500Medium.ttf",
-          "node_modules/@expo-google-fonts/manrope/Manrope_600SemiBold.ttf",
-          "node_modules/@expo-google-fonts/manrope/Manrope_700Bold.ttf",
-          "node_modules/@expo-google-fonts/manrope/Manrope_800ExtraBold.ttf",
-        ],
-      },
-    ],
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/manrope/Manrope_200ExtraLight.ttf",
+            "node_modules/@expo-google-fonts/manrope/Manrope_300Light.ttf",
+            "node_modules/@expo-google-fonts/manrope/Manrope_400Regular.ttf",
+            "node_modules/@expo-google-fonts/manrope/Manrope_500Medium.ttf",
+            "node_modules/@expo-google-fonts/manrope/Manrope_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/manrope/Manrope_700Bold.ttf",
+            "node_modules/@expo-google-fonts/manrope/Manrope_800ExtraBold.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ed2bca9b-1f50-4e03-9e25-0213d0d32adb"
+      }
     }
   }
 }

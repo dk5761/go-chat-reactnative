@@ -145,7 +145,7 @@ export const WebSocketProvider: React.FC<{
   };
 
   useEffect(() => {
-    connect();
+    // connect();
     return () => {
       if (socketRef.current) {
         socketRef.current.close();

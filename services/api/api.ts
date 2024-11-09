@@ -81,7 +81,7 @@ const handleApiErrorThrowRequests = (error: any) => {
     case 500:
       throw new Error("Internal Server Error");
     default:
-      throw new Error("Something went wrong. Please try again later.");
+      throw new Error(error.response.data.error);
   }
 };
 
@@ -104,15 +104,8 @@ export const postApiRQ = async <T = any, P = any>(
     return response.data.data;
   } catch (error: any) {
     // Handle error as needed
-    if (error.response.status === 400) {
-      throw new Error(error.response.data.error.message);
-    }
 
-    if (error.response.status === 500) {
-      throw new Error("Internal Server Error");
-    }
-
-    throw new Error("Something went wrong. Please try again later.");
+    throw new Error(error.response.data.error);
   }
 };
 
@@ -124,16 +117,7 @@ export const patchApiRQ = async <T = any, P = any>(
     const response: AxiosResponse = await api.patch<T>(url, data);
     return response.data.data;
   } catch (error: any) {
-    // Handle error as needed
-    if (error.response.status === 400) {
-      throw new Error(error.response.data.error.message);
-    }
-
-    if (error.response.status === 500) {
-      throw new Error("Internal Server Error");
-    }
-
-    throw new Error("Something went wrong. Please try again later.");
+    throw new Error(error.response.data.error);
   }
 };
 

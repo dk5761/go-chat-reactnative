@@ -17,11 +17,14 @@ import ChatCard from "@/components/Card/ChatCard";
 import { eq } from "drizzle-orm";
 import { useWebSocket } from "@/state/context/websocket/websocketContext";
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
+import Button from "@/components/ui/Button";
+import * as Burnt from "burnt";
 
 type Props = {};
 
 const index = () => {
   const { styles, theme } = useStyles(stylesheet);
+
   // const [chatListData, setChatListData] = useState<any[]>([]);
 
   const { isConnected } = useWebSocket();
@@ -80,18 +83,11 @@ const index = () => {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          headerStyle: {
-            backgroundColor: "#fff",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-
           headerTitle: (props) => (
             <Text
               style={{
                 fontWeight: "600",
+                color: theme.colors.primaryText,
               }}
             >
               Home
@@ -99,6 +95,34 @@ const index = () => {
           ),
         }}
       />
+      {/* <Button
+        title="Open Toast"
+        onPress={() => {
+          Burnt.toast({
+            title: "Congrats!", // required
+
+            preset: "done", // or "error", "none", "custom"
+
+            message: "", // optional
+
+            haptic: "success", // or "success", "warning", "error"
+
+            duration: 4, // duration in seconds
+
+            shouldDismissByDrag: true,
+
+            from: "bottom", // "top" or "bottom"
+
+            // optionally customize layout
+            layout: {
+              iconSize: {
+                height: 24,
+                width: 24,
+              },
+            },
+          });
+        }}
+      /> */}
 
       <FlatList
         data={chatListData}

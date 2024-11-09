@@ -53,6 +53,6 @@ const stylesheet = createStyleSheet((theme) => ({
   buttonText: {
     fontSize: theme.fontSizes.xs,
     fontWeight: "600",
-    color: theme.colors.textOnPrimary,
+    color: theme.colors.primaryText,
   },
 }));

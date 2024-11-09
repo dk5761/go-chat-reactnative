@@ -39,7 +39,7 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
     },
   });
 
-  const { styles } = useStyles(stylesheet);
+  const { styles, theme } = useStyles(stylesheet);
 
   const onSubmit = (data: LoginSchema) => {
     onSubmitCB(data);
@@ -58,6 +58,7 @@ const Login: React.FC<ILoginForm> = ({ onSubmitCB, btnText, title }) => {
           weight="semiBold"
           style={{
             marginBottom: stylesConstants.FOUR,
+            color: theme.colors.primaryText,
           }}
         >
           {title}

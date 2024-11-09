@@ -1,4 +1,4 @@
-import { Href, Redirect, Stack } from "expo-router";
+import { Href, Redirect, SplashScreen, Stack } from "expo-router";
 import useAuthContext from "@/hooks/contextHooks/useAuthContext";
 import { useGetProfile } from "@/state/queries/users/users";
 import { WebSocketProvider } from "@/state/context/websocket/websocketContext";
@@ -7,6 +7,7 @@ import { View } from "react-native";
 import Text from "@/components/ui/Text";
 import useStorage from "@/services/storage/useStorage";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useStyles } from "react-native-unistyles";
 
 export default function AppLayout() {
   const {
@@ -20,12 +21,16 @@ export default function AppLayout() {
   const { data, isLoading, error } = useGetProfile({});
   const { bottom } = useSafeAreaInsets();
 
+  const { theme } = useStyles();
+
   if (!isLoggedIn) {
     // On web, static rendering will stop here as the user is not authenticated
     // in the headless Node process that the pages are rendered in.
-    return <Redirect href={"../auth/login"} />;
+    SplashScreen.hideAsync();
+    return <Redirect href={"/login"} />;
   }
 
+  SplashScreen.hideAsync();
   if (isLoading) {
     return (
       <View
@@ -42,7 +47,7 @@ export default function AppLayout() {
 
   if (error) {
     purgeLocalStorage();
-    return <Redirect href={"../auth/login"} />;
+    return <Redirect href={"/login"} />;
   }
 
   // This layout can be deferred because it's not the root layout.
@@ -54,7 +59,17 @@ export default function AppLayout() {
         screenOptions={{
           contentStyle: {
             paddingBottom: bottom,
+            backgroundColor: theme.colors.background,
           },
+          statusBarStyle: "auto",
+          headerStyle: {
+            backgroundColor: theme.colors.background,
+          },
+          headerTitleStyle: {
+            color: theme.colors.primaryText,
+          },
+          headerTintColor: theme.colors.primaryText,
+          statusBarColor: theme.colors.primary,
         }}
       />
     </WebSocketProvider>

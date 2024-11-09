@@ -5,9 +5,13 @@ import { login, signUp } from "@/state/queries/auth/auth";
 import { useMutation } from "@tanstack/react-query";
 import { Link, router } from "expo-router";
 import { Button, StyleSheet, Text, View } from "react-native";
+import { createStyleSheet, useStyles } from "react-native-unistyles";
+import * as Burnt from "burnt";
+import { toast } from "sonner-native";
 
 export default function SignUp() {
   const { setAuthToken } = useAuthContext();
+  const { styles, theme } = useStyles(stylesheet);
 
   const mutation = useMutation({
     mutationFn: ({
@@ -40,16 +44,42 @@ export default function SignUp() {
       },
       {
         onSuccess: (data) => {
-          setAuthToken(data.token);
+          // setAuthToken(data.token);
           router.replace("/");
+          Burnt.toast({
+            title: "Success", // required
+            preset: "done", // or "error", "none", "custom"
+            message: "User Registered Successfully", // optional
+            haptic: "success", // or "success", "warning", "error"
+            duration: 4, // duration in seconds
+            shouldDismissByDrag: true,
+            from: "bottom", // "top" or "bottom"
+            // optionally customize layout
+            layout: {
+              iconSize: {
+                height: 24,
+                width: 24,
+              },
+            },
+          });
         },
-        onError: (err) => {},
+        onError: (err, as) => {
+          console.log({ err, as });
+          toast.error("Error", {
+            description: err.message,
+            styles: {
+              toast: {
+                backgroundColor: theme.colors.surface,
+              },
+            },
+          });
+        },
       }
     );
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       <Login
         onSubmitCB={(data) => onClickHandler(data)}
         btnText="Register"
@@ -58,7 +88,7 @@ export default function SignUp() {
       {/* <Button onPress={onClickHandler} title="Login" /> */}
       <Link
         replace
-        href={"/auth/login"}
+        href={"/login"}
         style={{
           paddingVertical: stylesConstants.TEN,
         }}
@@ -69,8 +99,15 @@ export default function SignUp() {
   );
 }
 
-const styles = StyleSheet.create({
-  link: {
-    color: "#007AFF",
+const stylesheet = createStyleSheet((theme, rt) => ({
+  container: {
+    flex: 1,
+
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: theme.colors.background,
   },
-});
+  link: {
+    color: theme.colors.primary,
+  },
+}));

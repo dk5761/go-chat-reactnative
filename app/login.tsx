@@ -3,7 +3,7 @@ import Login from "@/forms/Login";
 import useAuthContext from "@/hooks/contextHooks/useAuthContext";
 import { login } from "@/state/queries/auth/auth";
 import { useMutation } from "@tanstack/react-query";
-import { Link, router } from "expo-router";
+import { Link, router, Stack } from "expo-router";
 import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { createStyleSheet, useStyles } from "react-native-unistyles";
 
@@ -52,7 +52,12 @@ export default function SignIn() {
   const { styles } = useStyles(stylesheet);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
       <Login
         onSubmitCB={(data) => onClickHandler(data)}
         btnText="Login"
@@ -61,24 +66,24 @@ export default function SignIn() {
       {/* <Button onPress={onClickHandler} title="Login" /> */}
       <Link
         replace
-        href={"/auth/sign-up"}
+        href={"/sign-up"}
         style={{
           paddingVertical: stylesConstants.TEN,
         }}
       >
         <Text style={styles.link}>New?? Then Register!!</Text>
       </Link>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const stylesheet = createStyleSheet((theme, rt) => ({
   container: {
     flex: 1,
-    marginTop: rt.insets.top,
-    marginBottom: rt.insets.bottom,
+
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: theme.colors.background,
   },
   link: {
     color: theme.colors.primary,
